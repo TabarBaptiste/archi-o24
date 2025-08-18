@@ -1,0 +1,105 @@
+.contact {
+  padding: 3rem 1rem;
+  background-color: #f9f9f9;
+
+  .contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .contact-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      text-align: left;
+
+      .contact-form {
+        flex: 1;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1rem;
+
+          label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+          }
+
+          input,
+          textarea {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+
+            &:focus {
+              border-color: #dd0031;
+              outline: none;
+            }
+          }
+        }
+
+        .btn {
+          background-color: #dd0031;
+          color: #fff;
+          border: none;
+          padding: 0.8rem 1.5rem;
+          border-radius: 8px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.3s;
+
+          &:hover {
+            background-color: #b80027;
+          }
+        }
+      }
+
+      .contact-info {
+        flex: 0.6;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+        h2 {
+          margin-bottom: 1rem;
+          color: #333;
+        }
+
+        p {
+          margin: 0.5rem 0;
+          font-size: 1rem;
+          color: #555;
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .contact {
+    .contact-content {
+      flex-direction: column;
+    }
+  }
+}
