@@ -23,5 +23,5 @@
         </button>
     </form>
 
-    <p *ngIf="message" class="message">{{ message }}</p>
+    <p *ngIf="message" [ngClass]="{'message': true, 'error': succ === false}" class="message">{{ message }}</p>
 </div>
