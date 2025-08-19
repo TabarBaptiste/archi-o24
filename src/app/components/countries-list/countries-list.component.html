@@ -1,1 +1,38 @@
-<p>countries-list works!</p>
+<div class="countries-container">
+    <h2>Liste des Pays</h2>
+
+    <div class="controls">
+        <button (click)="toggleSource()">
+            {{ useApi ? 'Utiliser données locales' : 'Utiliser API' }}
+        </button>
+
+        <div *ngIf="useApi" class="filter">
+            <input [(ngModel)]="filter" placeholder="Filtrer par pays" />
+            <button (click)="loadFromApi()">Rechercher</button>
+        </div>
+    </div>
+
+    <div class="countries-grid">
+        <div class="country-card" *ngFor="let country of countries">
+            <div class="card-header">
+                <div *ngIf="country.flag">
+                    <img [src]="country.flag" alt="drapeau">
+                </div>
+                <h3>{{ country.name }}</h3>
+            </div>
+            <div class="card-content">
+                <div class="info-item">
+                    <strong>Capitale:</strong> {{ country.capital }}
+                </div>
+                <div class="info-item">
+                    <strong>Population:</strong> {{ country.population | number }}
+                </div>
+                <div class="info-item" *ngIf="country.region">
+                    <strong>Région:</strong> {{ country.region }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p *ngIf="countries.length === 0" style="text-align: center;">Aucun pays trouvé.</p>
+</div>
