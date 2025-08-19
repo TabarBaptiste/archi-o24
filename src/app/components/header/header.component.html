@@ -8,6 +8,29 @@
         <nav class="nav-links">
             <ul>
                 <li><a [routerLink]="['/']">Home</a></li>
+                
+                <!-- Affiché seulement si connecté -->
+                <li *ngIf="isLoggedIn">
+                    <a [routerLink]="['/profile']">Profile</a>
+                </li>
+                
+                <!-- Menu déroulant pour login/register (affiché seulement si non connecté) -->
+                <li *ngIf="!isLoggedIn" class="dropdown">
+                    <button class="dropdown-toggle" (click)="toggleDropdown()">
+                        Connexion
+                        <span class="arrow" [class.rotate]="showDropdown">▼</span>
+                    </button>
+                    <div class="dropdown-menu" [class.show]="showDropdown" (click)="closeDropdown()">
+                        <a [routerLink]="['/login']" class="dropdown-item">Login</a>
+                        <a [routerLink]="['/register']" class="dropdown-item">Register</a>
+                    </div>
+                </li>
+                
+                <!-- Bouton de déconnexion (affiché seulement si connecté) -->
+                <li *ngIf="isLoggedIn">
+                    <button class="logout-btn" (click)="logout()">Déconnexion</button>
+                </li>
+                
                 <li><a [routerLink]="['/about']">About</a></li>
                 <li><a [routerLink]="['/contact']">Contact</a></li>
             </ul>

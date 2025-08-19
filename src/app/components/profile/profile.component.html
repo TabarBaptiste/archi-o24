@@ -1,0 +1,14 @@
+<div class="profile-container" *ngIf="profile">
+    <h2>Mon profil</h2>
+
+    <div class="profile-card">
+        <p><strong>Nom :</strong> {{ profile.name }}</p>
+        <p><strong>Email :</strong> {{ profile.email }}</p>
+        <p><strong>Inscrit depuis :</strong> {{ profile.createdAt | date:'longDate' }}</p>
+    </div>
+
+    <button (click)="refreshProfile()">🔄 Rafraîchir</button>
+</div>
+
+<div *ngIf="loading" class="loading">Chargement...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
