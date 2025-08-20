@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 export interface Country {
   name: string;
@@ -29,6 +30,7 @@ export class CountriesListComponent implements OnInit {
   countries: Country[] = [];
   filteredCountries: Country[] = [];
   loading = false;
+  private readonly apiUrl = `${environment.apiBase}`;
   useAPI = false;
 
   // Filtres et tri
@@ -61,7 +63,7 @@ export class CountriesListComponent implements OnInit {
 
   loadFromAPI() {
     this.loading = true;
-    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags')
+    this.http.get<any[]>(`${this.apiUrl}/all?fields=name,capital,population,region,flags`)
       .subscribe({
         next: (data) => {
           this.countries = data.map(country => ({
