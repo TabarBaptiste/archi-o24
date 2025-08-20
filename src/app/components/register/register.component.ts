@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -17,7 +16,7 @@ export class RegisterComponent {
   submitted = false;
   message: string = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -39,16 +38,14 @@ export class RegisterComponent {
     this.loading = true;
     this.message = '';
 
-    const payload = this.registerForm.value;
-
-    this.http.post(`${environment.apiLocal}/auth/register`, payload).subscribe({
-      next: (res) => {
+    this.authService.register(this.registerForm.value).subscribe({
+      next: () => {
         this.message = 'Inscription réussie ! Vous pouvez maintenant vous connecter.';
         this.loading = false;
         this.registerForm.reset();
         this.submitted = false;
       },
-      error: (err) => {
+      error: () => {
         this.message = 'Erreur lors de l\'inscription. Vérifiez vos informations.';
         this.loading = false;
       }
