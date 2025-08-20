@@ -8,12 +8,40 @@
     </div>
 
     <div class="profile-actions" *ngIf="profile && !loading">
+        <button class="edit-btn" (click)="editProfile()">
+            ✏️ Modifier le profil
+        </button>
+        
         <button class="refresh-btn" (click)="refreshProfile()" [disabled]="loading">
             🔄 Rafraîchir
         </button>
+        
+        <button class="delete-btn" (click)="confirmDeleteAccount()">
+            🗑️ Supprimer le compte
+        </button>
+        
         <button class="logout-btn" (click)="logout()">
             🚪 Se déconnecter
         </button>
+    </div>
+
+    <!-- Modal de confirmation de suppression -->
+    <div class="delete-confirmation" *ngIf="showDeleteConfirmation">
+        <div class="confirmation-backdrop" (click)="cancelDeleteAccount()"></div>
+        <div class="confirmation-modal">
+            <h3>⚠️ Confirmer la suppression</h3>
+            <p>Êtes-vous sûr de vouloir supprimer définitivement votre compte ?</p>
+            <p class="warning-text">Cette action est irréversible !</p>
+            
+            <div class="confirmation-actions">
+                <button class="cancel-btn" (click)="cancelDeleteAccount()">
+                    Annuler
+                </button>
+                <button class="confirm-delete-btn" (click)="deleteAccount()" [disabled]="loading">
+                    {{ loading ? 'Suppression...' : 'Oui, supprimer' }}
+                </button>
+            </div>
+        </div>
     </div>
 
     <div *ngIf="loading" class="loading">

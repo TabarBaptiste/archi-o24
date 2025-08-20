@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   profile: any = null;
   loading = false;
   error: string = '';
+  showDeleteConfirmation = false;
 
   constructor(
     private profileService: ProfileService,
@@ -63,6 +64,46 @@ export class ProfileComponent implements OnInit {
   logout(): void {
     this.profileService.logout();
     this.router.navigate(['/login']);
+  }
+
+  editProfile(): void {
+    // Rediriger vers le composant d'édition du profil
+    this.router.navigate(['/profile/edit']);
+  }
+
+  confirmDeleteAccount(): void {
+    this.showDeleteConfirmation = true;
+  }
+
+  cancelDeleteAccount(): void {
+    this.showDeleteConfirmation = false;
+  }
+
+  deleteAccount(): void {
+    this.loading = true;
+    this.error = '';
+
+    this.profileService.deleteAccount().subscribe({
+      next: () => {
+        // Le service gère déjà la déconnexion
+        alert('Compte supprimé avec succès');
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.showDeleteConfirmation = false;
+        
+        if (err.status === 401) {
+          this.error = "Session expirée. Veuillez vous reconnecter.";
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000);
+        } else {
+          this.error = "Erreur lors de la suppression du compte ❌";
+          console.error('Erreur suppression compte:', err);
+        }
+      }
+    });
   }
 
   private handleError(err: any): void {
