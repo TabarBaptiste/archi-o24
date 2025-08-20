@@ -1,7 +1,7 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { END_POINTS } from '../environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -22,7 +22,6 @@ interface AuthResponse {
 })
 export class AuthService {
 
-  private apiUrl = environment.apiLocal + '/auth';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
 
@@ -50,7 +49,7 @@ export class AuthService {
 
   // Appel à l'API pour s'inscrire
   register(payload: { name: string; email: string; password: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, payload)
+    return this.http.post<AuthResponse>(END_POINTS.auth.register, payload)
       .pipe(
         tap(response => this.handleAuthSuccess(response))
       );
@@ -58,7 +57,7 @@ export class AuthService {
 
   // Appel à l'API pour se connecter
   login(payload: { email: string; password: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, payload)
+    return this.http.post<AuthResponse>(END_POINTS.auth.login, payload)
       .pipe(
         tap(response => this.handleAuthSuccess(response))
       );

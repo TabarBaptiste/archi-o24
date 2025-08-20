@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterComponent {
   submitted = false;
   message: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -44,6 +45,7 @@ export class RegisterComponent {
         this.loading = false;
         this.registerForm.reset();
         this.submitted = false;
+        this.router.navigate(['/login']);
       },
       error: () => {
         this.message = 'Erreur lors de l\'inscription. Vérifiez vos informations.';
