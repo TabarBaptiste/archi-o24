@@ -2,15 +2,15 @@
   max-width: 400px;
   margin: 3rem auto;
   padding: 2rem;
-  background: #ffffff;
+  background: var(--color-bg);
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px var(--color-shadow);
   text-align: center;
 
   h2 {
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
-    color: #2c3e50;
+    color: var(--color-form);
   }
 
   form {
@@ -28,7 +28,7 @@
       label {
         font-weight: 600;
         margin-bottom: 0.3rem;
-        color: #34495e;
+        color: var(--color-form);
       }
 
       input {

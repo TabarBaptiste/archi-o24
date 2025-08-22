@@ -2,23 +2,23 @@
   max-width: 500px;
   margin: 3rem auto;
   padding: 2rem;
-  background: #ffffff;
+  background: var(--color-bg);
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px var(--color-shadow);
   text-align: center;
 
   h2 {
     margin-bottom: 1.5rem;
     font-size: 2rem;
-    color: #2c3e50;
+    color: var(--color-form);
   }
 
   .profile-card {
     text-align: left;
     padding: 1.5rem;
-    border: 1px solid #eee;
+    border: 1px solid var(--color-border);
     border-radius: 10px;
-    background: #f9f9f9;
+    background: var(--color-bg2);
     margin-bottom: 1.5rem;
 
     p {
@@ -26,7 +26,7 @@
       font-size: 1.1rem;
 
       strong {
-        color: #34495e;
+        color: var(--color-form);
       }
     }
   }
@@ -173,7 +173,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
+      background: var(--color-bg);
       border-radius: 12px;
       padding: 2rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -189,7 +189,7 @@
 
       p {
         margin-bottom: 1rem;
-        color: #2c3e50;
+        color: var(--color-form);
         line-height: 1.5;
       }
 

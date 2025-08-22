@@ -14,7 +14,7 @@
 }
  
 .countries-header h2 {
-  color: #333;
+  color: var(--color-text);
   margin: 0;
 }
  
@@ -44,13 +44,13 @@
  
 .data-source-info p {
   margin: 0;
-  color: #666;
+  color: var(--color-text2);
   font-weight: 500;
 }
  
 /* Styles pour les filtres */
 .filters-container {
-  background: white;
+  background: var(--color-bg);
   border: 1px solid #e9ecef;
   border-radius: 12px;
   padding: 1.5rem;
@@ -75,7 +75,7 @@
  
 .search-filter label, .continent-filter label, .sort-filter label {
   font-weight: 600;
-  color: #333;
+  color: var(--color-text);
   font-size: 0.9rem;
 }
  
@@ -119,7 +119,7 @@
  
 .results-info p {
   margin: 0;
-  color: #666;
+  color: var(--color-text2);
   font-weight: 500;
   text-align: center;
 }
@@ -127,7 +127,7 @@
 .loading {
   text-align: center;
   padding: 3rem;
-  color: #666;
+  color: var(--color-text2);
 }
  
 .countries-grid {
@@ -138,7 +138,7 @@
 }
  
 .country-card {
-  background: white;
+  background: var(--color-bg);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -165,7 +165,7 @@
 }
  
 .country-info h3 {
-  color: #333;
+  color: var(--color-text);
   margin: 0 0 0.75rem 0;
   font-size: 1.25rem;
   font-weight: 600;
@@ -173,12 +173,12 @@
  
 .country-info p {
   margin: 0.5rem 0;
-  color: #666;
+  color: var(--color-text2);
   line-height: 1.5;
 }
  
 .country-info strong {
-  color: #333;
+  color: var(--color-text);
 }
  
 /* Responsive design */

@@ -19,7 +19,7 @@
     }
 
     .btn-cta {
-      background: #fff;
+      background: var(--color-bg2);
       color: #dd0031;
       font-weight: bold;
       border: none;
@@ -49,12 +49,12 @@
     h2 {
       font-size: 2rem;
       margin-bottom: 1rem;
-      color: #333;
+      color: var(--color-text);
     }
 
     p {
       font-size: 1.1rem;
-      color: #555;
+      color: var(--color-text2);
       line-height: 1.6;
     }
   }

@@ -2,14 +2,14 @@
   max-width: 500px;
   margin: 0;
   padding: 2rem;
-  background: #ffffff;
+  background: var(--color-bg);
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px var(--color-shadow);
 
   h2 {
     text-align: center;
     margin-bottom: 2rem;
-    color: #2c3e50;
+    color: var(--color-form);
     font-size: 1.8rem;
   }
 
@@ -53,7 +53,7 @@
       label {
         display: block;
         margin-bottom: 0.5rem;
-        color: #2c3e50;
+        color: var(--color-form);
         font-weight: 600;
         font-size: 1rem;
       }
