@@ -98,6 +98,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.loadProfile();
   }
 
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    
+    const date = new Date(dateString);
+    const months = [
+      'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+      'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+    ];
+    
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    
+    return `${day} ${month} ${year}`;
+  }
+
   confirmDeleteAccount(): void {
     this.showDeleteConfirmation = true;
   }

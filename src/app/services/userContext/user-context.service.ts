@@ -73,18 +73,6 @@ export class UserContextService {
   }
 
   /**
-   * Met à jour partiellement les informations utilisateur
-   * @param updates - Les champs à mettre à jour
-   */
-  updateUser(updates: Partial<User>): void {
-    const currentUser = this.getUser();
-    if (currentUser) {
-      const updatedUser = { ...currentUser, ...updates };
-      this.setUser(updatedUser);
-    }
-  }
-
-  /**
    * Récupère l'email de l'utilisateur connecté
    * @returns L'email ou null
    */

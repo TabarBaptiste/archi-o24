@@ -1,59 +1,45 @@
-# ArchiO24
+# Sujet de TP : Gestion du contexte utilisateur dans l’application Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+## 1. Mise en place du contexte utilisateur
 
-## Development server
+- Le service UserContextService a été créé ici : [src\app\services\userContext\user-context.service.ts](src/app/services/userContext/user-context.service.ts)
 
-To start a local development server, run:
+- Il contient les trois fonctions suivantes :
 
-```bash
-ng serve
-```
+    * `setUser(user: User): void`
+    * `getUser(): User | null`
+    * `getUser$(): Observable<User | null>`
+    * `clearUser(): void`
+    * D'autres fonctions pottentiellement utiles mais pas utilisées ici.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 2. Barre de navigation dynamique
 
-## Code scaffolding
+La navbar affiche dynamiqument le nom de l'utilisater, mais pas l'avatar ni le rôle puisque nous n'en avons pas créé dans [backend\src\models\user.model.js](backend\src\models\user.model.js).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+![![navbar](src\assets\navbar.png)](src\assets\navbar.png)
 
-```bash
-ng generate component component-name
-```
+## 3. Personnalisation du thème (100% front)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Un service [src\app\services\theme.service.ts](src\app\services\theme.service.ts) a été créé pour personnaliser le thème de l'application. Il contient les fonciton :
 
-```bash
-ng generate --help
-```
+    * `setTheme(theme: 'light' | 'dark'): void`
+    * `getCurrentTheme(): string`
+    * `loadTheme(): void`
+    * `toggleTheme(): void`
 
-## Building
+Les variables globales CSS ont été ajoutées dans le fichier [src\styles.scss](src\styles.scss) afin de centraliser les couleurs dans un seul fichier, qui sont utilisées par l'ensemble des fichiers .scss de l'application.
 
-To build the project run:
+| ![Thème clair](src\assets\clair.png) | ![Thème sombre](src\assets\sombre.png) |
+| :---: | :---: |
+| Thème clair | Thème sombre |
 
-```bash
-ng build
-```
+## Bonus
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Les informations de l'utilisateur ainsi que le thème sont sauvegardées en local storage. En cas de refresh, l'utilisateur reste connecté.
+![![localStorage](src\assets\localStorage.png)](src\assets\localStorage.png)
 
-## Running unit tests
+Et j'ai aussi utilisé l'api de [restcountries.com](restcountries.com) pour afficher les pays de monde.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+J'y ai ajouté un **filtre** par *continent* ; une **recharge** par *nom* ; et un **trie** par ordre croissant et décroissant de *population*, de *nom* et de *continent*.
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+![![pays](src\assets\pays.png)](src\assets\pays.png)

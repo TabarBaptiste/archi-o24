@@ -4,7 +4,7 @@
     <div class="profile-card" *ngIf="profile && !loading">
         <p><strong>Nom :</strong> {{ profile.name }}</p>
         <p><strong>Email :</strong> {{ profile.email }}</p>
-        <p *ngIf="profile.createdAt"><strong>Inscrit depuis :</strong> {{ profile.createdAt | date:'longDate' }}</p>
+        <p *ngIf="profile.createdAt"><strong>Inscrit depuis :</strong> {{ formatDate(profile.createdAt) }}</p>
     </div>
 
     <div class="profile-actions" *ngIf="profile && !loading">
