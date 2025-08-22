@@ -1,3 +1,4 @@
+import { ThemeService } from './services/theme.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
@@ -13,10 +14,10 @@ import { UserContextService } from './services/userContext/user-context.service'
 export class AppComponent implements OnInit {
   title = 'archi-o24';
 
-  constructor(private userContextService: UserContextService) {}
+  constructor(private userContextService: UserContextService, private themeService: ThemeService) { }
 
   ngOnInit(): void {
     // Le UserContextService s'initialise automatiquement depuis le storage
-    // Aucune action supplémentaire nécessaire ici
+    this.themeService.loadTheme();
   }
 }

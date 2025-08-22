@@ -36,6 +36,13 @@
                 
                 <li><a [routerLink]="['/about']">About</a></li>
                 <li><a [routerLink]="['/contact']">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" (click)="toggleTheme()">
+                        <span *ngIf="getTheme() === 'dark'">☀️ thème clair</span>
+                        <span *ngIf="getTheme() !== 'dark'">🌙 thème sombre</span>
+                    </button>
+                </li>
+
             </ul>
         </nav>
     </div>

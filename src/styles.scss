@@ -1,6 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+    /* Couleurs principales */
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-primary: #dd0031;
+    --color-secondary: #4CAF50;
+    --color-danger: #e74c3c;
+    
+    /* Couleurs de fond et bordures */
+    --color-bg-secondary: #f8f9fa;
+    --color-border: #e0e0e0;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+    
+    /* Couleurs d'état */
+    --color-hover: #f5f5f5;
+    --color-active: #e9ecef;
+    
+    /* Couleurs de texte */
+    --color-text-muted: #7f8c8d;
+    --color-text-light: #6c757d;
+}
+
+.dark-theme {
+    /* Couleurs principales */
+    --color-bg: #121212;
+    --color-text: #f5f5f5;
+    --color-primary: #ff4757;
+    --color-secondary: #5dade2;
+    --color-danger: #e55353;
+    
+    /* Couleurs de fond et bordures */
+    --color-bg-secondary: #1e1e1e;
+    --color-border: #333333;
+    --color-shadow: rgba(255, 255, 255, 0.1);
+    
+    /* Couleurs d'état */
+    --color-hover: #2c2c2c;
+    --color-active: #404040;
+    
+    /* Couleurs de texte */
+    --color-text-muted: #bdc3c7;
+    --color-text-light: #95a5a6;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
