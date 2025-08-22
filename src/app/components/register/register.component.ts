@@ -45,7 +45,7 @@ export class RegisterComponent {
         this.loading = false;
         this.registerForm.reset();
         this.submitted = false;
-        // this.router.navigate(['/login']);
+        this.router.navigate(['/profile']);
       },
       error: () => {
         this.message = 'Erreur lors de l\'inscription. Vérifiez vos informations.';

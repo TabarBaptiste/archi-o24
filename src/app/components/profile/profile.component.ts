@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile/profile.service';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule],
+  imports: [CommonModule, ProfileEditComponent],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
@@ -14,6 +15,7 @@ export class ProfileComponent implements OnInit {
   loading = false;
   error: string = '';
   showDeleteConfirmation = false;
+  showEditModal = false;
 
   constructor(
     private profileService: ProfileService,
@@ -67,8 +69,14 @@ export class ProfileComponent implements OnInit {
   }
 
   editProfile(): void {
-    // Rediriger vers le composant d'édition du profil
-    this.router.navigate(['/profile/edit']);
+    // Ouvrir la modale d'édition
+    this.showEditModal = true;
+  }
+
+  closeEditModal(): void {
+    this.showEditModal = false;
+    // Recharger le profil pour avoir les dernières données
+    this.loadProfile();
   }
 
   confirmDeleteAccount(): void {

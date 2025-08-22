@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,6 +11,8 @@ import { ProfileService } from '../../../services/profile/profile.service';
   styleUrl: './profile-edit.component.scss'
 })
 export class ProfileEditComponent implements OnInit {
+  @Output() close = new EventEmitter<void>();
+  
   editForm: FormGroup;
   profile: any = null;
   loading = false;
@@ -36,7 +38,7 @@ export class ProfileEditComponent implements OnInit {
   private loadProfile(): void {
     // Vérifier d'abord si l'utilisateur est connecté
     if (!this.profileService.isAuthenticated()) {
-      this.router.navigate(['/login']);
+      this.error = "Vous devez être connecté.";
       return;
     }
 
@@ -99,9 +101,9 @@ export class ProfileEditComponent implements OnInit {
         this.successMessage = 'Profil mis à jour avec succès ! ✅';
         this.saving = false;
         
-        // Retourner au profil après 2 secondes
+        // Fermer la modale après 2 secondes
         setTimeout(() => {
-          this.router.navigate(['/profile']);
+          this.close.emit();
         }, 2000);
       },
       error: (err) => {
@@ -112,7 +114,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/profile']);
+    this.close.emit();
   }
 
   get f() {
@@ -130,14 +132,11 @@ export class ProfileEditComponent implements OnInit {
     this.loading = false;
     
     if (err.status === 401) {
-      this.error = "Session expirée. Redirection...";
-      setTimeout(() => {
-        this.router.navigate(['/login']);
-      }, 2000);
+      this.error = "Session expirée. Veuillez vous reconnecter.";
     } else if (err.status === 400) {
       this.error = "Données invalides. Veuillez vérifier vos informations.";
     } else if (err.message === 'Token manquant') {
-      this.router.navigate(['/login']);
+      this.error = "Vous devez être connecté.";
     } else {
       this.error = "Erreur lors de la mise à jour du profil ❌";
       console.error('Erreur edit profile:', err);

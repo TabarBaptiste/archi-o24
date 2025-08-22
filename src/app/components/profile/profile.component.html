@@ -44,6 +44,14 @@
         </div>
     </div>
 
+    <!-- Modal d'édition du profil -->
+    <div class="edit-modal" *ngIf="showEditModal">
+        <div class="modal-backdrop" (click)="closeEditModal()"></div>
+        <div class="modal-content">
+            <app-profile-edit (close)="closeEditModal()"></app-profile-edit>
+        </div>
+    </div>
+
     <div *ngIf="loading" class="loading">
         <p>Chargement du profil...</p>
     </div>
