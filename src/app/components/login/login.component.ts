@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth.service';
+import { UserContextService } from '../../services/userContext/user-context.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +18,12 @@ export class LoginComponent {
   loading = false;
   message: string = '';
   succ: boolean = true;
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private userContextService: UserContextService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -43,7 +49,11 @@ export class LoginComponent {
         this.message = 'Connexion réussie ✅';
         this.succ = true;
 
-        // Le service gère maintenant automatiquement la sauvegarde du token et de l'utilisateur
+        // Mettre à jour le contexte utilisateur avec les informations reçues
+        if (res.user) {
+          this.userContextService.setUser(res.user);
+        }
+
         // Redirection après un délai
         setTimeout(() => {
           this.router.navigate(['/profile']);

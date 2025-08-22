@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile/profile.service';
+import { UserContextService, User } from '../../services/userContext/user-context.service';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -10,34 +12,50 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
-  profile: any = null;
+export class ProfileComponent implements OnInit, OnDestroy {
+  profile: User | null = null;
   loading = false;
   error: string = '';
   showDeleteConfirmation = false;
   showEditModal = false;
+  private userSubscription: Subscription = new Subscription();
 
   constructor(
     private profileService: ProfileService,
+    private userContextService: UserContextService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    // S'abonner aux changements d'utilisateur dans le contexte
+    this.userSubscription = this.userContextService.getUser$().subscribe(user => {
+      if (user) {
+        this.profile = user;
+      } else {
+        this.profile = null;
+      }
+    });
+
     this.loadProfile();
   }
 
+  ngOnDestroy(): void {
+    // Nettoyer les abonnements
+    this.userSubscription.unsubscribe();
+  }
+
   private loadProfile(): void {
-    // Vérifier d'abord si l'utilisateur est connecté
-    if (!this.profileService.isAuthenticated()) {
+    // Vérifier d'abord si l'utilisateur est connecté via le contexte
+    if (!this.userContextService.isUserLoggedIn()) {
       this.error = "Vous devez être connecté.";
       this.router.navigate(['/login']);
       return;
     }
 
-    // Récupérer les infos depuis le cache local d'abord
-    const cachedUser = this.profileService.getCurrentUserFromCache();
-    if (cachedUser) {
-      this.profile = cachedUser;
+    // Récupérer les infos depuis le contexte utilisateur d'abord
+    const contextUser = this.userContextService.getUser();
+    if (contextUser) {
+      this.profile = contextUser;
     }
 
     // Puis charger les infos depuis l'API pour avoir des données à jour
@@ -65,6 +83,7 @@ export class ProfileComponent implements OnInit {
 
   logout(): void {
     this.profileService.logout();
+    // Le contexte se met à jour automatiquement via le ProfileService
     this.router.navigate(['/login']);
   }
 

@@ -1,35 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+
 import { AuthService } from '../../auth.service';
-import { Router } from '@angular/router';
+import { UserContextService, User } from '../../services/userContext/user-context.service';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   showDropdown = false;
-  currentUser: any = null;
+  currentUser: User | null = null;
+  private subscriptions = new Subscription();
 
   constructor(
     private authService: AuthService,
+    private userContextService: UserContextService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    // S'abonner aux changements d'état de connexion
-    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
+    // ✅ On s’abonne au contexte utilisateur
+    const userSub = this.userContextService.getUser$().subscribe(user => {
+      this.currentUser = user;
+      this.isLoggedIn = user !== null;
     });
 
-    // S'abonner aux changements d'utilisateur
-    this.authService.currentUser$.subscribe(user => {
-      this.currentUser = user;
-    });
+    this.subscriptions.add(userSub);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   toggleDropdown() {
@@ -41,8 +48,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.userContextService.clearUser(); // ✅ utile si ton service gère l’état utilisateur
     this.authService.logout();
     this.closeDropdown();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']); // ✅ redirection claire
   }
 }
